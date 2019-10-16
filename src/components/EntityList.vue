@@ -1,7 +1,7 @@
 <template>
   <div class="entity-list">
     <b-menu>
-      <b-menu-list>
+      <b-menu-list label="Liste">
         <b-menu-item label="Nouveau" @click="$emit('selected', null)" active></b-menu-item>
         <b-menu-item v-for="element in elements" :key="element.id" :label="element.name" @click="$emit('selected', element)"></b-menu-item>
       </b-menu-list>
