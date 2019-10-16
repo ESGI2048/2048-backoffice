@@ -4,15 +4,15 @@
     <h4 class="subtitle" v-if="event.id != 0">Modifier {{ event.name }}</h4>
     <div class="columns is-mobile">
       <b-field label="Nom" class="column">
-        <b-input :value="event.name" required ref="nameField"></b-input>
+        <b-input v-model="event.name" required ref="nameField"></b-input>
       </b-field>
       <b-field label="Adresse" class="column">
-        <b-input :value="event.address" required ref="addressField"></b-input>
+        <b-input v-model="event.address" required ref="addressField"></b-input>
       </b-field>
     </div>
     <div class="columns">
       <b-field label="Description" class="column">
-        <b-input maxlength="255" required type="textarea" ref="descriptionField"></b-input>
+        <b-input maxlength="255" v-model="event.description" required type="textarea" ref="descriptionField"></b-input>
       </b-field>
     </div>
     <div class="columns is-mobile">

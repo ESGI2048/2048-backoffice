@@ -2,7 +2,7 @@
   <div class="components">
     <h1 class="title">Composants</h1>
     <div class="columns">
-      <EntityList class="column is-one-quarter" endpoint="test" :elements="components" @selected="onSelected" ref="componentsList"/>
+      <EntityList class="column is-one-quarter" endpoint="component" @selected="onSelected" ref="componentsList"/>
       <ComponentForm :component="selectedComponent" class="column" @submit="refresh"/>
     </div>
   </div>
@@ -20,11 +20,6 @@ export default {
   },
   data: function () {
     return {
-      components: [
-        { id: 1, name: 'Test 1', value: 0 },
-        { id: 2, name: 'Test 2', value: 2 },
-        { id: 3, name: 'Test 3', value: 4 }
-      ],
       selectedComponent: { id: 0, name: '', value: 0 }
     }
   },

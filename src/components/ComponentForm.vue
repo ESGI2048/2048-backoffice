@@ -4,7 +4,7 @@
     <h4 class="subtitle" v-if="component.id != 0">Modifier {{ component.name }}</h4>
     <div class="columns is-mobile">
       <b-field label="Nom" class="column">
-        <b-input :value="component.name" required ref="nameField"></b-input>
+        <b-input v-model="component.name" required ref="nameField"></b-input>
       </b-field>
       <b-field label="Valeur" class="column">
         <b-numberinput v-model="component.value" min="0" required ref="valueField"></b-numberinput>

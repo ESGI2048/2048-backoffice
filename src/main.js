@@ -13,7 +13,23 @@ Vue.component('vue-fontawesome', FontAwesomeIcon)
 
 require('./scss/app.scss')
 
-Vue.prototype.$axios = require('axios')
+Vue.prototype.$axios = require('axios').create({
+  baseURL: 'http://localhost:8888/',
+  headers: { 'Cache-Control': 'no-cache' },
+  timeout: 1000
+})
+
+Vue.prototype.$axios.interceptors.response.use(function (response) {
+  return response
+}, function (error) {
+  if (error.response && error.response.status === 403) {
+    Vue.prototype.$auth.username = ''
+    Vue.prototype.$auth.password = ''
+    router.push({ name: 'login' })
+  }
+  return Promise.reject(error)
+})
+
 Vue.prototype.$auth = { username: '', password: '' }
 
 Vue.config.productionTip = false
