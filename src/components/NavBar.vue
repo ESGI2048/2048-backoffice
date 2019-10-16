@@ -13,12 +13,20 @@
           active-class="is-active"
           :disabled="$auth.username.length == 0 && $auth.password.length == 0"
           ></b-menu-item>
+          <b-menu-item
+            label="Déconnexion"
+            icon="sign-out-alt"
+            ref="disconnect"
+            :disabled="$auth.username.length == 0 && $auth.password.length == 0"
+            @click="disconnect"></b-menu-item>
       </b-menu-list>
     </b-menu>
   </div>
 </template>
 
 <script>
+import Vue from 'vue'
+
 export default {
   name: 'NavBar',
   props: {
@@ -27,6 +35,17 @@ export default {
   watch: {
     $route (to, from) {
       this.$forceUpdate()
+    }
+  },
+  methods: {
+    disconnect () {
+      this.$auth.username = ''
+      this.$auth.password = ''
+      this.$router.push({ name: 'login' })
+      Vue.nextTick(() => {
+        this.$refs.disconnect.reset(this.$refs.disconnect.$parent)
+        this.$refs.disconnect.newActive = false
+      })
     }
   }
 }
@@ -37,11 +56,13 @@ export default {
 
 .navbar {
   padding-left: 0;
+  padding-right: 1.5rem;
   border-right: 1px solid $light;
 
   .logo {
       padding-left: 0;
   }
+
 }
 
 </style>
