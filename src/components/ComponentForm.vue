@@ -13,7 +13,7 @@
     <div class="columns is-mobile">
       <div class="column">
         <b-field label="Image">
-          <b-upload v-model="file" drag-drop :required="component.id == 0" ref="fileField">
+          <b-upload v-model="file" drag-drop :required="component.id == 0" ref="fileField" @input="$refs.fileField.checkHtml5Validity()">
             <section class="section">
               <div class="content has-text-centered">
                 <p>
@@ -63,8 +63,8 @@ export default {
       if (this.validate()) {
         this.$axios({
           method: this.component.id !== 0 ? 'PUT' : 'POST',
-          url: '/component'
-          // TODO body
+          url: '/component',
+          data: this.generateFormData()
         })
           .then((response) => {
             this.$buefy.toast.open({
@@ -113,6 +113,13 @@ export default {
             })
         }
       })
+    },
+    generateFormData () {
+      let formData = new FormData()
+      formData.append('image', this.file)
+      formData.append('name', this.component.name)
+      formData.append('value', this.component.value)
+      return formData
     },
     validate () {
       this.$refs.fileField.checkHtml5Validity()

@@ -18,7 +18,7 @@
     <div class="columns is-mobile">
       <div class="column">
         <b-field label="Image">
-          <b-upload v-model="file" drag-drop required>
+          <b-upload v-model="file" drag-drop :required="event.id == 0" ref="fileField" @input="$refs.fileField.checkHtml5Validity()">
             <section class="section">
               <div class="content has-text-centered">
                 <p>
@@ -76,9 +76,9 @@ export default {
     send () {
       if (this.validate()) {
         this.$axios({
-          method: this.component.id !== 0 ? 'PUT' : 'POST',
-          url: '/event'
-          // TODO body
+          method: this.event.id !== 0 ? 'PUT' : 'POST',
+          url: '/event',
+          data: this.generateFormData()
         })
           .then((response) => {
             this.$buefy.toast.open({
@@ -127,16 +127,34 @@ export default {
             })
         }
       })
+    },
+    generateFormData () {
+      let formData = new FormData()
+      formData.append('image', this.file)
+      formData.append('name', this.event.name)
+      formData.append('address', this.event.address)
+      formData.append('description', this.event.description)
+      formData.append('date', new Date(this.event.date.getTime() - (this.event.date.getTimezoneOffset() * 60000)).toISOString().split('T')[0])
+      return formData
+    },
+    validate () {
+      this.$refs.fileField.checkHtml5Validity()
+      this.$refs.nameField.checkHtml5Validity()
+      this.$refs.addressField.checkHtml5Validity()
+      this.$refs.descriptionField.checkHtml5Validity()
+      this.$refs.dateField.checkHtml5Validity()
+      return this.$refs.nameField.isValid &&
+             this.$refs.addressField.isValid &&
+             this.$refs.dateField.isValid &&
+             this.$refs.fileField.isValid &&
+             this.$refs.descriptionField.isValid
     }
   },
   watch: {
     event (newVal, oldVal) {
       this.file = null
       Vue.nextTick(() => {
-        this.$refs.nameField.checkHtml5Validity()
-        this.$refs.addressField.checkHtml5Validity()
-        this.$refs.descriptionField.checkHtml5Validity()
-        this.$refs.dateField.checkHtml5Validity()
+        this.validate()
       })
     }
   }
