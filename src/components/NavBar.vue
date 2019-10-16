@@ -1,15 +1,18 @@
 <template>
-  <b-menu>
-    <b-menu-list label="Menu">
-      <b-menu-item
-        v-for="menu in menus"
-        :key="menu.route"
-        :icon="menu.icon"
-        :label="menu.label"
-        tag="router-link"
-        :to="{ path: menu.route }"></b-menu-item>
-    </b-menu-list>
-  </b-menu>
+  <div class="navbar">
+    <img :src="require('@/assets/logo.png')" class="logo">
+    <b-menu>
+      <b-menu-list label="Menu">
+        <b-menu-item
+          v-for="menu in menus"
+          :key="menu.route"
+          :icon="menu.icon"
+          :label="menu.label"
+          tag="router-link"
+          :to="{ path: menu.route }"></b-menu-item>
+      </b-menu-list>
+    </b-menu>
+  </div>
 </template>
 
 <script>
@@ -24,8 +27,13 @@ export default {
 <style scoped lang="scss">
 @import '@/scss/_variables.scss';
 
-.menu {
+.navbar {
   padding-left: 0;
-  border-right: 1px solid $light
+  border-right: 1px solid $light;
+
+  .logo {
+      padding-left: 0;
+  }
 }
+
 </style>

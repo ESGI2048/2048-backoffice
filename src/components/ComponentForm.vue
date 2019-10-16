@@ -36,10 +36,10 @@
     </div>
     <div class="columns align-right">
       <div class="column is-narrow" v-if="component.id != 0">
-        <b-button type="is-danger" size="is-medium" icon-left="trash">Supprimer</b-button>
+        <b-button type="is-danger" size="is-normal" icon-left="trash">Supprimer</b-button>
       </div>
       <div class="column is-narrow">
-        <b-button type="is-success" size="is-medium" icon-left="check" @click="send">Envoyer</b-button>
+        <b-button type="is-success" size="is-normal" icon-left="check" @click="send">Envoyer</b-button>
       </div>
     </div>
   </div>
