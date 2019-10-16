@@ -27,7 +27,14 @@ export default {
   methods: {
     fetch () {
       // TODO HTTP call
+    },
+    refresh () {
+      this.elements = []
+      this.fetch()
     }
+  },
+  mounted() {
+    //this.refresh()
   }
 }
 </script>
