@@ -1,27 +1,35 @@
 <template>
-  <div id="app">
-    <div id="nav" class="is-size-4">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+  <section id="app" class="section is-fullheight">
+    <div class="columns">
+      <NavBar :menus="menus" class="column is-narrow"/>
+      <router-view class="column"/>
     </div>
-    <router-view/>
-  </div>
+  </section>
 </template>
+
+<script>
+import NavBar from '@/components/NavBar.vue'
+
+export default {
+  name: 'app',
+  components: {
+    NavBar
+  },
+  data: function () {
+    return {
+      menus: [
+        { label: 'Composants', icon: 'cog', route: 'components' },
+        { label: 'Évènements', icon: 'calendar', route: 'events' }
+      ]
+    }
+  }
+}
+</script>
 
 <style lang="scss">
 @import "./scss/app.scss";
+
 #app {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-}
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    &.router-link-exact-active {
-      color: $dark;
-    }
-  }
+  padding-top: 0.75rem;
 }
 </style>

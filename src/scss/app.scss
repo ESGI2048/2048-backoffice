@@ -1,41 +1,23 @@
-@import "~bulma/sass/utilities/_all";
+@import "variables";
 
 // Set your colors
-$primary: #d2b886;
-$primary-invert: findColorInvert($primary);
-$light: #efefef;
-$text: #949494;
-
-$colors: (
-    "white": ($white, $black),
-    "black": ($black, $white),
-    "light": ($light, $light-invert),
-    "dark": ($dark, $dark-invert),
-    "primary": ($primary, $primary-invert),
-    "info": ($info, $info-invert),
-    "success": ($success, $success-invert),
-    "warning": ($warning, $warning-invert),
-    "danger": ($danger, $danger-invert),
-);
-
-// Links
-$link: $primary;
-$link-invert: $primary-invert;
-$link-focus-border: $primary;
 
 @import "~bulma";
 @import "~buefy/src/scss/buefy";
 @import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
 
 body {
+    min-height: 100vh;
     font-family: 'Poppins', sans-serif;
     font-size: 14px;
     font-style: normal;
     font-weight: 300;
-    line-height: 26px;
 }
 
 .button, .title, .subtitle {
     text-transform: uppercase;
 }
 
+.icon {
+    vertical-align: middle;
+}
