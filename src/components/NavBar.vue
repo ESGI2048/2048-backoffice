@@ -25,6 +25,7 @@ export default {
 @import '@/scss/_variables.scss';
 
 .menu {
+  padding-left: 0;
   border-right: 1px solid $light
 }
 </style>

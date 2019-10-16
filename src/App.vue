@@ -1,6 +1,6 @@
 <template>
-  <section id="app" class="section is-fullheight">
-    <div class="columns">
+  <section id="app" class="section fullheight">
+    <div class="columns fullheight is-marginless">
       <NavBar :menus="menus" class="column is-narrow"/>
       <router-view class="column"/>
     </div>
@@ -31,5 +31,7 @@ export default {
 
 #app {
   padding-top: 0.75rem;
+  padding-bottom: 0;
+  min-height: 100vh;
 }
 </style>
