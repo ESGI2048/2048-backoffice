@@ -9,7 +9,9 @@
           :icon="menu.icon"
           :label="menu.label"
           tag="router-link"
-          :to="{ path: menu.route }"></b-menu-item>
+          :to="{ path: menu.route }"
+          active-class="is-active"
+          ></b-menu-item>
       </b-menu-list>
     </b-menu>
   </div>

@@ -5,10 +5,10 @@ import Buefy from 'buefy'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 // internal icons
-import { faCog, faCalendar, faRedo, faPlus, faMinus, faExclamationCircle, faUpload, faCheck, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faCog, faCalendar, faRedo, faPlus, faMinus, faExclamationCircle, faUpload, faCheck, faTrash, faCalendarDay, faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-library.add(faCog, faCalendar, faRedo, faPlus, faMinus, faExclamationCircle, faUpload, faCheck, faTrash)
+library.add(faCog, faCalendar, faRedo, faPlus, faMinus, faExclamationCircle, faUpload, faCheck, faTrash, faCalendarDay, faAngleLeft, faAngleRight)
 Vue.component('vue-fontawesome', FontAwesomeIcon)
 
 require('./scss/app.scss')
