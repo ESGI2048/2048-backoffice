@@ -11,6 +11,7 @@
           tag="router-link"
           :to="{ path: menu.route }"
           active-class="is-active"
+          :disabled="$auth.username.length == 0 && $auth.password.length == 0"
           ></b-menu-item>
       </b-menu-list>
     </b-menu>
@@ -22,6 +23,11 @@ export default {
   name: 'NavBar',
   props: {
     menus: Array
+  },
+  watch: {
+    $route (to, from) {
+      this.$forceUpdate()
+    }
   }
 }
 </script>
