@@ -2,7 +2,7 @@
   <div class="events">
     <h1 class="title">Évènements</h1>
     <div class="columns">
-      <EntityList class="column is-one-quarter" endpoint="test" :elements="events" @selected="onSelected" refs="eventsList"/>
+      <EntityList class="column is-one-quarter" endpoint="test" :elements="events" @selected="onSelected" ref="eventsList"/>
       <EventForm :event="selectedEvent" class="column" @submit="refresh"/>
     </div>
   </div>
@@ -33,7 +33,7 @@ export default {
       this.selectedEvent = event != null ? event : { id: 0, name: '', date: new Date(), address: '' }
     },
     refresh () {
-    	this.$refs.eventsList.refresh()
+      this.$refs.eventsList.refresh()
     }
   }
 }

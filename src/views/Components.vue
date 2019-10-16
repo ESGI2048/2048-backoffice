@@ -2,7 +2,7 @@
   <div class="components">
     <h1 class="title">Composants</h1>
     <div class="columns">
-      <EntityList class="column is-one-quarter" endpoint="test" :elements="components" @selected="onSelected" refs="componentsList"/>
+      <EntityList class="column is-one-quarter" endpoint="test" :elements="components" @selected="onSelected" ref="componentsList"/>
       <ComponentForm :component="selectedComponent" class="column" @submit="refresh"/>
     </div>
   </div>

@@ -4,15 +4,15 @@
     <h4 class="subtitle" v-if="event.id != 0">Modifier {{ event.name }}</h4>
     <div class="columns is-mobile">
       <b-field label="Nom" class="column">
-        <b-input :value="event.name" required></b-input>
+        <b-input :value="event.name" required ref="nameField"></b-input>
       </b-field>
       <b-field label="Adresse" class="column">
-        <b-input :value="event.address" required></b-input>
+        <b-input :value="event.address" required ref="addressField"></b-input>
       </b-field>
     </div>
     <div class="columns">
       <b-field label="Description" class="column">
-        <b-input maxlength="255" required type="textarea"></b-input>
+        <b-input maxlength="255" required type="textarea" ref="descriptionField"></b-input>
       </b-field>
     </div>
     <div class="columns is-mobile">
@@ -43,7 +43,8 @@
               inline
               v-model="event.date"
               placeholder="Cliquer pour sélectionner..."
-              icon="calendar-day">
+              icon="calendar-day"
+              ref="dateField">
             </b-datepicker>
         </b-field>
     </div>
@@ -59,6 +60,8 @@
 </template>
 
 <script>
+import Vue from 'vue'
+
 export default {
   name: 'event-form',
   props: {
@@ -72,6 +75,17 @@ export default {
   methods: {
     send () {
       // TODO HTTP call
+    }
+  },
+  watch: {
+    event (newVal, oldVal) {
+      this.file = null
+      Vue.nextTick(() => {
+        this.$refs.nameField.checkHtml5Validity()
+        this.$refs.addressField.checkHtml5Validity()
+        this.$refs.descriptionField.checkHtml5Validity()
+        this.$refs.dateField.checkHtml5Validity()
+      })
     }
   }
 }

@@ -4,10 +4,10 @@
     <h4 class="subtitle" v-if="component.id != 0">Modifier {{ component.name }}</h4>
     <div class="columns is-mobile">
       <b-field label="Nom" class="column">
-        <b-input :value="component.name" required></b-input>
+        <b-input :value="component.name" required ref="nameField"></b-input>
       </b-field>
       <b-field label="Valeur" class="column">
-        <b-numberinput v-model="component.value" min="0" required></b-numberinput>
+        <b-numberinput v-model="component.value" min="0" required ref="valueField"></b-numberinput>
       </b-field>
     </div>
     <div class="columns is-mobile">
@@ -46,6 +46,8 @@
 </template>
 
 <script>
+import Vue from 'vue'
+
 export default {
   name: 'component-form',
   props: {
@@ -59,6 +61,15 @@ export default {
   methods: {
     send () {
       // TODO HTTP call
+    }
+  },
+  watch: {
+    component (newVal, oldVal) {
+      this.file = null
+      Vue.nextTick(() => {
+        this.$refs.nameField.checkHtml5Validity()
+        this.$refs.valueField.checkHtml5Validity()
+      })
     }
   }
 }

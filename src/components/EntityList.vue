@@ -33,8 +33,8 @@ export default {
       this.fetch()
     }
   },
-  mounted() {
-    //this.refresh()
+  mounted () {
+    // this.refresh()
   }
 }
 </script>
