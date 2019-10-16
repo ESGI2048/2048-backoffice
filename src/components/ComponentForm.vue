@@ -64,6 +64,7 @@ export default {
         this.$axios({
           method: this.component.id !== 0 ? 'PUT' : 'POST',
           url: '/component'
+          // TODO body
         })
           .then((response) => {
             this.$buefy.toast.open({

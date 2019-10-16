@@ -3,7 +3,7 @@
     <h1 class="title">Évènements</h1>
     <div class="columns">
       <EntityList class="column is-one-quarter" endpoint="event" @selected="onSelected" ref="eventsList"/>
-      <EventForm :event="selectedEvent" class="column" @submit="refresh"/>
+      <EventForm :event="selectedEvent" class="column" @submit="refresh" @delete="refresh"/>
     </div>
   </div>
 </template>
