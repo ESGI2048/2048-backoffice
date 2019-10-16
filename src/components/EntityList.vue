@@ -37,7 +37,7 @@ export default {
         .catch((error) => {
           this.$buefy.toast.open({
             duration: 5000,
-            message: `An error occurred.<br>${error}`,
+            message: `Une erreur est survenue.<br>${error}`,
             type: 'is-danger'
           })
         })

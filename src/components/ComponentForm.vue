@@ -13,7 +13,7 @@
     <div class="columns is-mobile">
       <div class="column">
         <b-field label="Image">
-          <b-upload v-model="file" drag-drop required>
+          <b-upload v-model="file" drag-drop :required="component.id == 0" ref="fileField">
             <section class="section">
               <div class="content has-text-centered">
                 <p>
@@ -36,7 +36,7 @@
     </div>
     <div class="columns align-right">
       <div class="column is-narrow" v-if="component.id != 0">
-        <b-button type="is-danger" size="is-normal" icon-left="trash">Supprimer</b-button>
+        <b-button type="is-danger" size="is-normal" icon-left="trash" @click="deleteRecord">Supprimer</b-button>
       </div>
       <div class="column is-narrow">
         <b-button type="is-success" size="is-normal" icon-left="check" @click="send">Envoyer</b-button>
@@ -60,15 +60,71 @@ export default {
   },
   methods: {
     send () {
-      // TODO HTTP call
+      if (this.validate()) {
+        this.$axios({
+          method: this.component.id !== 0 ? 'PUT' : 'POST',
+          url: '/component'
+        })
+          .then((response) => {
+            this.$buefy.toast.open({
+              duration: 2000,
+              message: `Composant créé`,
+              type: 'is-success'
+            })
+            this.$emit('submit')
+          })
+          .catch((error) => {
+            this.$buefy.toast.open({
+              duration: 5000,
+              message: `Une erreur est survenue.<br>${error}`,
+              type: 'is-danger'
+            })
+          })
+      }
+    },
+    deleteRecord () {
+      this.$buefy.dialog.confirm({
+        title: 'Supprimer le composant',
+        message: 'Êtes-vous sûr de vouloir <b>supprimer</b> ce composant ? Cette action est irréversible.',
+        confirmText: 'Supprimer le composant',
+        cancelText: 'Annuler',
+        type: 'is-danger',
+        hasIcon: true,
+        onConfirm: () => {
+          this.$axios({
+            method: 'DELETE',
+            url: `/component/${this.component.id}`
+          })
+            .then((response) => {
+              this.$buefy.toast.open({
+                duration: 2000,
+                message: `Composant supprimé`,
+                type: 'is-success'
+              })
+              this.$emit('delete')
+            })
+            .catch((error) => {
+              this.$buefy.toast.open({
+                duration: 5000,
+                message: `Une erreur est survenue.<br>${error}`,
+                type: 'is-danger'
+              })
+            })
+        }
+      })
+    },
+    validate () {
+      this.$refs.fileField.checkHtml5Validity()
+      this.$refs.nameField.checkHtml5Validity()
+      this.$refs.valueField.checkHtml5Validity()
+      return this.$refs.nameField.isValid && this.$refs.valueField.isValid && this.$refs.fileField.isValid
     }
   },
   watch: {
     component (newVal, oldVal) {
       this.file = null
       Vue.nextTick(() => {
-        this.$refs.nameField.checkHtml5Validity()
-        this.$refs.valueField.checkHtml5Validity()
+        this.validate()
       })
     }
   }
