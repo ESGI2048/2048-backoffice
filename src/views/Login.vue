@@ -15,7 +15,7 @@
             @keyup.native.enter="login">
           </b-input>
         </b-field>
-        <b-button type="is-success" @click="login">Connexion</b-button>
+        <b-button type="is-primary" @click="login">Connexion</b-button>
       </div>
     </div>
   </div>
