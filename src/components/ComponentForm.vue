@@ -32,16 +32,18 @@
             </section>
             <div class="content has-text-centered" v-else>
               <img :src="fileURL" class="image preview-image">
-              <span class="tag is-medium is-primary" v-if="file">
-                {{ file.name }}
-                <button class="delete is-small"
-                  type="button"
-                  @click="resetUpload">
-                </button>
-              </span>
             </div>
           </b-upload>
         </b-field>
+        <div>
+          <span class="tag is-medium is-primary" v-if="file">
+            {{ file.name }}
+            <button class="delete is-small"
+              type="button"
+              @click="resetUpload">
+            </button>
+          </span>
+        </div>
       </div>
     </div>
     <div class="columns align-right">

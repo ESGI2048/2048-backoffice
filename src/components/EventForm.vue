@@ -16,7 +16,16 @@
       </b-field>
     </div>
     <div class="columns is-mobile">
-      <div class="column">
+      <b-field label="Date" class="column">
+        <b-datepicker
+          inline
+          v-model="event.date"
+          placeholder="Cliquer pour sélectionner..."
+          icon="calendar-day"
+          ref="dateField">
+        </b-datepicker>
+      </b-field>
+      <div class="column has-text-centered">
         <b-field label="Image">
           <b-upload v-model="file" drag-drop :required="event.id == 0" ref="fileField" @input="updateImagePreview">
             <section class="section" v-if="file == null">
@@ -30,26 +39,19 @@
             </section>
             <div class="content has-text-centered" v-else>
               <img :src="fileURL" class="image preview-image">
-              <span class="tag is-medium is-primary" v-if="file">
-                {{ file.name }}
-                <button class="delete is-small"
-                  type="button"
-                  @click="resetUpload">
-                </button>
-              </span>
             </div>
           </b-upload>
         </b-field>
+        <div>
+          <span class="tag is-medium is-primary" v-if="file">
+            {{ file.name }}
+            <button class="delete is-small"
+              type="button"
+              @click="resetUpload">
+            </button>
+          </span>
+        </div>
       </div>
-      <b-field label="Date" class="column">
-            <b-datepicker
-              inline
-              v-model="event.date"
-              placeholder="Cliquer pour sélectionner..."
-              icon="calendar-day"
-              ref="dateField">
-            </b-datepicker>
-        </b-field>
     </div>
     <div class="columns align-right">
       <div class="column is-narrow" v-if="event.id != 0">
