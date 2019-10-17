@@ -22,9 +22,10 @@ Vue.prototype.$axios = require('axios').create({
 Vue.prototype.$axios.interceptors.response.use(function (response) {
   return response
 }, function (error) {
-  if (error.response && error.response.status === 403) {
+  if (error.response && error.response.status === 403 && Vue.prototype.$auth.username.length > 0 && Vue.prototype.$auth.password.length > 0) {
     Vue.prototype.$auth.username = ''
     Vue.prototype.$auth.password = ''
+    delete Vue.prototype.$axios.defaults.headers.common['Authorization']
     router.push({ name: 'login' })
   }
   return Promise.reject(error)

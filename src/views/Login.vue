@@ -36,11 +36,27 @@ export default {
       this.$refs.passwordInput.checkHtml5Validity()
       if (this.$refs.usernameInput.isValid && this.$refs.passwordInput.isValid) {
         this.$axios.defaults.headers.common['Authorization'] = `Basic ${Buffer.from(this.username + ':' + this.password).toString('base64')}`
-        this.$auth.username = this.username
-        this.$auth.password = this.password
-        this.username = ''
-        this.password = ''
-        this.$router.push({ name: 'components' })
+
+        this.$axios.get('/authentication/admin')
+          .then((response) => {
+            this.$auth.username = this.username
+            this.$auth.password = this.password
+            this.username = ''
+            this.password = ''
+            this.$router.push({ name: 'components' })
+          })
+          .catch((error) => {
+            const message = error.response && error.response.status === 403 ? 'Identifiants incorrects' : `Une erreur est survenue.<br>${error}`
+            this.$buefy.toast.open({
+              duration: 5000,
+              message: message,
+              type: 'is-danger'
+            })
+            this.password = ''
+            this.$auth.username = ''
+            this.$auth.password = ''
+            delete this.$axios.defaults.headers.common['Authorization']
+          })
       }
     }
   },

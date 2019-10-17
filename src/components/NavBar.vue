@@ -41,6 +41,7 @@ export default {
     disconnect () {
       this.$auth.username = ''
       this.$auth.password = ''
+      delete this.$axios.defaults.headers.common['Authorization']
       this.$router.push({ name: 'login' })
       Vue.nextTick(() => {
         this.$refs.disconnect.reset(this.$refs.disconnect.$parent)
