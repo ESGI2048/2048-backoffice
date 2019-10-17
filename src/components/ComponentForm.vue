@@ -13,8 +13,8 @@
     <div class="columns is-mobile">
       <div class="column">
         <b-field label="Image">
-          <b-upload v-model="file" drag-drop :required="component.id == 0" ref="fileField" @input="$refs.fileField.checkHtml5Validity()">
-            <section class="section">
+          <b-upload v-model="file" drag-drop :required="component.id == 0" ref="fileField" @input="updateImagePreview">
+            <section class="section" v-if="file == null">
               <div class="content has-text-centered">
                 <p>
                   <b-icon icon="upload" size="is-medium">
@@ -23,15 +23,18 @@
                 <p>Déposez une image pour le composant</p>
               </div>
             </section>
+            <div class="content has-text-centered" v-else>
+              <img :src="fileURL" class="image preview-image">
+              <span class="tag is-medium is-primary" v-if="file">
+                {{ file.name }}
+                <button class="delete is-small"
+                  type="button"
+                  @click="resetUpload">
+                </button>
+              </span>
+            </div>
           </b-upload>
         </b-field>
-        <span class="tag is-medium is-primary" v-if="file">
-          {{ file.name }}
-          <button class="delete is-small"
-            type="button"
-            @click="file = null">
-          </button>
-        </span>
       </div>
     </div>
     <div class="columns align-right">
@@ -55,7 +58,8 @@ export default {
   },
   data () {
     return {
-      file: null
+      file: null,
+      fileURL: null
     }
   },
   methods: {
@@ -126,6 +130,14 @@ export default {
       this.$refs.nameField.checkHtml5Validity()
       this.$refs.valueField.checkHtml5Validity()
       return this.$refs.nameField.isValid && this.$refs.valueField.isValid && this.$refs.fileField.isValid
+    },
+    updateImagePreview () {
+      this.$refs.fileField.checkHtml5Validity()
+      this.fileURL = URL.createObjectURL(this.file)
+    },
+    resetUpload () {
+      this.file = null
+      this.fileURL = null
     }
   },
   watch: {
