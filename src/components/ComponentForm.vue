@@ -95,6 +95,7 @@ export default {
               message: 'Composant ' + (this.component.id === 0 ? 'créé' : 'modifié'),
               type: 'is-success'
             })
+            this.resetUpload()
             this.$emit('submit')
           })
           .catch((error) => {

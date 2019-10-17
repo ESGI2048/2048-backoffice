@@ -93,6 +93,7 @@ export default {
               message: 'Évènement ' + (this.event.id === 0 ? 'créé' : 'modifié'),
               type: 'is-success'
             })
+            this.resetUpload()
             this.$emit('submit')
           })
           .catch((error) => {
