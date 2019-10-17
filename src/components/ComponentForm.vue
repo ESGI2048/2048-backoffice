@@ -96,6 +96,7 @@ export default {
               type: 'is-success'
             })
             this.resetUpload()
+            this.selectedType = null
             this.$emit('submit')
           })
           .catch((error) => {
