@@ -134,7 +134,11 @@ export default {
     },
     generateFormData () {
       let formData = new FormData()
-      formData.append('image', this.file)
+
+      if (this.file) {
+        formData.append('image', this.file)
+      }
+
       formData.append('name', this.event.name)
       formData.append('address', this.event.address)
       formData.append('description', this.event.description)
