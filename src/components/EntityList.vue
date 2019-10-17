@@ -32,7 +32,7 @@ export default {
     fetch () {
       this.$axios.get(`/${this.endpoint}`)
         .then((response) => {
-          this.elements = response.data[Object.keys(response.data)[0]]
+          this.elements = response.data
         })
         .catch((error) => {
           this.$buefy.toast.open({

@@ -7,7 +7,7 @@
         <b-input v-model="event.name" required ref="nameField"></b-input>
       </b-field>
       <b-field label="Adresse" class="column">
-        <b-input v-model="event.address" required ref="addressField"></b-input>
+        <b-input v-model="event.place" required ref="addressField"></b-input>
       </b-field>
     </div>
     <div class="columns">
@@ -143,7 +143,7 @@ export default {
       }
 
       formData.append('name', this.event.name)
-      formData.append('address', this.event.address)
+      formData.append('address', this.event.place)
       formData.append('description', this.event.description)
       formData.append('date', new Date(this.event.date.getTime() - (this.event.date.getTimezoneOffset() * 60000)).toISOString().split('T')[0])
       return formData
