@@ -143,6 +143,7 @@ export default {
   watch: {
     component (newVal, oldVal) {
       this.file = null
+      this.fileURL = null
       Vue.nextTick(() => {
         this.validate()
       })
