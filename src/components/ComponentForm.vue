@@ -73,9 +73,10 @@ export default {
   methods: {
     send () {
       if (this.validate()) {
+        const url = '/component' + (this.component.id !== 0 ? `/${this.component.id}` : '')
         this.$axios({
           method: this.component.id !== 0 ? 'PUT' : 'POST',
-          url: '/component',
+          url: url,
           data: this.generateFormData()
         })
           .then((response) => {

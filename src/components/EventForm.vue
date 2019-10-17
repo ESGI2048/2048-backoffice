@@ -79,9 +79,10 @@ export default {
   methods: {
     send () {
       if (this.validate()) {
+        const url = '/event' + (this.event.id !== 0 ? `/${this.event.id}` : '')
         this.$axios({
           method: this.event.id !== 0 ? 'PUT' : 'POST',
-          url: '/event',
+          url: url,
           data: this.generateFormData()
         })
           .then((response) => {

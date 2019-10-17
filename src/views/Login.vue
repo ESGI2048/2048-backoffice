@@ -32,6 +32,8 @@ export default {
   },
   methods: {
     login () {
+      this.$refs.usernameInput.checkHtml5Validity()
+      this.$refs.passwordInput.checkHtml5Validity()
       if (this.$refs.usernameInput.isValid && this.$refs.passwordInput.isValid) {
         this.$axios.defaults.headers.common['Authorization'] = `Basic ${Buffer.from(this.username + ':' + this.password).toString('base64')}`
         this.$auth.username = this.username
