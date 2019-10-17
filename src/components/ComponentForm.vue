@@ -6,15 +6,15 @@
       <b-field label="Nom" class="column">
         <b-input v-model="component.name" required ref="nameField"></b-input>
       </b-field>
-      <b-field label="Valeur" class="column">
-        <b-numberinput v-model="component.value" min="0" required ref="valueField"></b-numberinput>
+      <b-field label="Valeur" class="column" title="La valeur est définie par le type">
+        <b-numberinput v-model="component.value" min="0" required disabled ref="valueField"></b-numberinput>
       </b-field>
     </div>
     <div class="columns is-mobile">
       <div class="column">
         <b-field label="Type">
-          <b-select placeholder="Sélectionner un type" required expanded v-model="component.type" ref="typeField">
-            <option v-for="type in types" :key="type" :value="type">{{ type }}</option>
+          <b-select placeholder="Sélectionner un type" required expanded v-model="selectedType" ref="typeField">
+            <option v-for="type in types" :key="type.value" :value="type">{{ type.name }}</option>
           </b-select>
         </b-field>
       </div>
@@ -69,7 +69,15 @@ export default {
     return {
       file: null,
       fileURL: null,
-      types: ['Aiguille', 'Cadran', 'Boitier', 'Lunette', 'Quartz', 'Bracelet', 'Verre', 'Platine', 'Mouvement', 'Mobile', 'Barillet']
+      selectedType: null,
+      types: [
+        { name: 'Cadran', value: 2 },
+        { name: 'Boitier', value: 4 },
+        { name: 'Bracelet', value: 8 },
+        { name: 'Boitier avec Cadran', value: 16 },
+        { name: 'Bracelet avec Boitier', value: 32 },
+        { name: 'Montre', value: 64 }
+      ]
     }
   },
   methods: {
@@ -155,16 +163,29 @@ export default {
     resetUpload () {
       this.file = null
       this.fileURL = null
+    },
+    findType (type) {
+      for (let key in this.types) {
+        if (this.types[key].name === type) {
+          return this.types[key]
+        }
+      }
+      return null
     }
   },
   watch: {
     component (newVal, oldVal) {
       if (newVal.id !== oldVal.id) {
         this.resetUpload()
+        this.selectedType = this.findType(newVal.type)
         Vue.nextTick(() => {
           this.validate()
         })
       }
+    },
+    selectedType (newVal, oldVal) {
+      this.component.type = this.selectedType != null ? this.selectedType.name : ''
+      this.component.value = this.selectedType != null ? this.selectedType.value : undefined
     }
   }
 }
