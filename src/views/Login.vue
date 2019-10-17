@@ -37,7 +37,7 @@ export default {
       if (this.$refs.usernameInput.isValid && this.$refs.passwordInput.isValid) {
         this.$axios.defaults.headers.common['Authorization'] = `Basic ${Buffer.from(this.username + ':' + this.password).toString('base64')}`
 
-        this.$axios.get('/authentication/admin')
+        this.$axios.get('/login/admin')
           .then((response) => {
             this.$auth.username = this.username
             this.$auth.password = this.password
