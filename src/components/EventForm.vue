@@ -87,7 +87,7 @@ export default {
           .then((response) => {
             this.$buefy.toast.open({
               duration: 2000,
-              message: 'Évènement ' + (this.event.id !== 0 ? 'créé' : 'modifié'),
+              message: 'Évènement ' + (this.event.id === 0 ? 'créé' : 'modifié'),
               type: 'is-success'
             })
             this.$emit('submit')

@@ -20,12 +20,12 @@ export default {
   },
   data: function () {
     return {
-      selectedComponent: { id: 0, name: '', value: 0 }
+      selectedComponent: { id: 0, name: '', value: 0, type: '' }
     }
   },
   methods: {
     onSelected (component) {
-      this.selectedComponent = component != null ? component : { id: 0, name: '', value: 0 }
+      this.selectedComponent = component != null ? component : { id: 0, name: '', value: 0, type: '' }
     },
     refresh () {
       this.$refs.componentsList.refresh()

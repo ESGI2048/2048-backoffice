@@ -12,6 +12,13 @@
     </div>
     <div class="columns is-mobile">
       <div class="column">
+        <b-field label="Type">
+          <b-select placeholder="Sélectionner un type" required expanded v-model="component.type" ref="typeField">
+            <option v-for="type in types" :key="type" :value="type">{{ type }}</option>
+          </b-select>
+        </b-field>
+      </div>
+      <div class="column has-text-centered">
         <b-field label="Image">
           <b-upload v-model="file" drag-drop :required="component.id == 0" ref="fileField" @input="updateImagePreview">
             <section class="section" v-if="file == null">
@@ -59,7 +66,8 @@ export default {
   data () {
     return {
       file: null,
-      fileURL: null
+      fileURL: null,
+      types: ['Aiguille', 'Cadran', 'Boitier', 'Lunette', 'Quartz', 'Bracelet', 'Verre', 'Platine', 'Mouvement', 'Mobile', 'Barillet']
     }
   },
   methods: {
@@ -73,7 +81,7 @@ export default {
           .then((response) => {
             this.$buefy.toast.open({
               duration: 2000,
-              message: 'Composant ' + (this.component.id !== 0 ? 'créé' : 'modifié'),
+              message: 'Composant ' + (this.component.id === 0 ? 'créé' : 'modifié'),
               type: 'is-success'
             })
             this.$emit('submit')
@@ -123,13 +131,15 @@ export default {
       formData.append('image', this.file)
       formData.append('name', this.component.name)
       formData.append('value', this.component.value)
+      formData.append('type', this.component.type)
       return formData
     },
     validate () {
       this.$refs.fileField.checkHtml5Validity()
       this.$refs.nameField.checkHtml5Validity()
       this.$refs.valueField.checkHtml5Validity()
-      return this.$refs.nameField.isValid && this.$refs.valueField.isValid && this.$refs.fileField.isValid
+      this.$refs.typeField.checkHtml5Validity()
+      return this.$refs.nameField.isValid && this.$refs.valueField.isValid && this.$refs.fileField.isValid && this.$refs.typeField.isValid
     },
     updateImagePreview () {
       this.$refs.fileField.checkHtml5Validity()
