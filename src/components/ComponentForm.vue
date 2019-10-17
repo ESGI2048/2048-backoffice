@@ -20,7 +20,7 @@
       </div>
       <div class="column has-text-centered">
         <b-field label="Image">
-          <b-upload v-model="file" drag-drop :required="component.id == 0" ref="fileField" @input="updateImagePreview">
+          <b-upload v-model="file" drag-drop :required="component.id == 0" accept="image/*" ref="fileField" @input="updateImagePreview">
             <section class="section" v-if="file == null">
               <div class="content has-text-centered">
                 <p>
