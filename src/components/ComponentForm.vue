@@ -141,7 +141,7 @@ export default {
       let formData = new FormData()
 
       if (this.file) {
-        formData.append('image', this.file)
+        formData.append('file', this.file)
       }
 
       formData.append('name', this.component.name)

@@ -139,11 +139,11 @@ export default {
       let formData = new FormData()
 
       if (this.file) {
-        formData.append('image', this.file)
+        formData.append('file', this.file)
       }
 
       formData.append('name', this.event.name)
-      formData.append('address', this.event.place)
+      formData.append('place', this.event.place)
       formData.append('description', this.event.description)
       formData.append('date', new Date(this.event.date.getTime() - (this.event.date.getTimezoneOffset() * 60000)).toISOString().split('T')[0])
       return formData
