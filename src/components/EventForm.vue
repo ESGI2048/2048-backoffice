@@ -169,11 +169,12 @@ export default {
   },
   watch: {
     event (newVal, oldVal) {
-      this.file = null
-      this.fileURL = null
-      Vue.nextTick(() => {
-        this.validate()
-      })
+      if (newVal.id !== oldVal.id) {
+        this.resetUpload()
+        Vue.nextTick(() => {
+          this.validate()
+        })
+      }
     }
   }
 }
